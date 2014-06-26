@@ -1,0 +1,148 @@
+'''
+Created on Mar 25, 2012
+
+@author: mariano
+'''
+
+#Trial TIMEOUT(sin uso)
+TRIAL_TIMEOUT = 10
+
+#Cantidad maxima de niveles
+MAX_PELLETS = 2
+
+MAX_TRIALS = 150
+
+POINTS_PER_PELLET = 8
+
+POINTS_RESTART = 0
+
+#Button positions"
+BUTTON_POSITION = [(350, 600), (500, 600), (475, 600)]
+
+#Circles sizes
+MAX_SIZE = 100
+SIZE_FOR_EASY = [int(MAX_SIZE * x) for x in [0.22, 0.3, 0.4,
+                                        0.5, 0.54, 0.6,
+                                        0.7, 0.74, 1.0]]
+
+#Circles positions:
+INITIAL_POINT = (200, 30)
+OFFSET_X = [int(MAX_SIZE * x) for x in [0.5, 0.7, 1]]
+OFFSET_Y = [int(x * 0.8) for x in OFFSET_X]
+
+#Image resources
+MEDIA = '/home/mariano/facultad/tesis/multineuro/multi-game/meta-cognition/media/'
+
+GREEN_TICK_FILE = MEDIA + "green-tick.png"
+RED_CROSS_FILE = MEDIA + "red-cross.png"
+SCORE_CONTAINER_FILE = MEDIA + 'score_container.png'
+CONGRATS_PICTURE = MEDIA + 'congrats.jpg'
+
+#Tuio configuration
+TUIO_ENABLE = False
+
+#Game Configuration
+FULLSCREEN = True
+
+#Trial Hardness
+# Generated radomly, but first 40 choices are 20/20, and total is 74/76 (150)
+TRIAL_HARDNESS = [True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False,
+ True,
+ True,
+ True,
+ False]

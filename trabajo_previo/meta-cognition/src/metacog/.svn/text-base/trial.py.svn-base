@@ -1,0 +1,49 @@
+from multineuro.sprite.textsprite import TextSprite
+import logging
+class Trial(object):
+
+    def __init__(self, logger, circles, buttons):
+        self.logger = logger
+        self.circles = circles
+        self.buttons = buttons
+        self.hide_buttons()
+        for circle in circles:
+            circle.suscribe('touch', self._choose_circle)
+        self.splash = TextSprite('', self.show_circles)
+
+
+    def start(self, hard, scale, current_trial):
+        self.current_trial = current_trial
+        self.hard = hard
+        self.scale = scale
+        self.splash.show()
+
+
+    def show_circles(self):
+        self.circles.renew_circles(self.hard, self.scale)
+        self.logger.begin_time(self.current_trial)
+        self.circles.show()
+
+    def _choose_circle(self, circle):
+        """ Saves the circle choosed and shows the question. """
+        self.logger.process_circle_choice(circle)
+        self.circles.hide()
+        self._show_question()
+
+    def _show_question(self):
+        """ Show confidence question. """
+        for button in self.buttons:
+            button.show()
+        self.logger.begin_time(self.current_trial)
+
+    def hide_buttons(self):
+        """ Hide buttons. """
+        for button in self.buttons:
+            button.hide()
+
+    def process_trial(self, ans):
+        self.logger.process_answer(ans)
+        logging.debug('Saving Trial.')
+        trial = self.logger.save_trial(self.circles)
+        self.hide_buttons()
+        return trial

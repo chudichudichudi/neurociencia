@@ -1,0 +1,38 @@
+todo: 
+
+cliente
+
+* hacer un logger generico que se le pueda apuntar una api
+
+* pantalla login
+
+** Instrucciones del juego, poner nombre, start
+** logo del labo o algo asi
+
+
+* bets, etc
+
+* slider
+
+** Confidence, very low, very high
+** sin colores, linea delgada
+
+
+* bet
+** una animacion de update de score
+** sacar signos de animacion
+** el -1 no existe
+** +- 3 mas grande
+** textos bet y optout
+
+
+servidor
+
+* hacer servidor que implente dicha api
+
+** deberia ser algo del estilo: te paso nombre experimento -> te doy un id -> grabo id + log en json
+** tendria que tener un panel de control para ver los experimentos, etc
+
+* hacer api del algoritmo escalera
+* http://www.psychopy.org/api/data.html#psychopy.data.QuestHandler
+* http://www.visionegg.org/Quest/ <- eventualmente implementar este algoritmo
