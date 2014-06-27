@@ -9,23 +9,6 @@ cliente
 ** Instrucciones del juego, poner nombre, start
 ** logo del labo o algo asi
 
-
-* bets, etc
-
-* slider
-
-** Confidence, very low, very high
-** sin colores, linea delgada
-
-
-* bet
-** una animacion de update de score
-** sacar signos de animacion
-** el -1 no existe
-** +- 3 mas grande
-** textos bet y optout
-
-
 servidor
 
 * hacer servidor que implente dicha api

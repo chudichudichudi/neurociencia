@@ -44,7 +44,6 @@ metacog.CircleScene.createScene = function (scale) {
 
   metacog.trials.get_current_circle_size();
   var scene = new lime.Scene();
-  var title = new lime.Label().setPosition(512 ,50).setFontFamily("Arial, Helvetica, sans-serif").setText("Select the biggest circle").setFontSize(50).setFontWeight("bold").setFill(200,100,100,.1).setSize(800,70);
 
   var width_step = config.screen_width / 4;
   var height_step = config.screen_height / 4;
@@ -88,21 +87,10 @@ metacog.CircleScene.createScene = function (scale) {
   scene.appendChild(layer_7);
   scene.appendChild(layer_8);
   scene.appendChild(layer_9);
-  //add target and title to the scene
-  scene.appendChild(title);
-
-
-  var reset_title = new lime.Label().setSize(800,70).setFontSize(60).setText('Reset').setOpacity(1).setPosition(512,1000).setFontColor('#999').setFill(200,100,0,.1);
-  goog.events.listen(reset_title,['mousedown','touchstart'],function () {
-    metacog.new_trial();
-  });
-
-  scene.appendChild(reset_title);
 
   var manage_click = function(e) {
     var choosed = this.original_pos.pos;
     metacog.trials.set_elected_circle(choosed);
-    title.setText('Seleccionado: ' + this.original_pos.label_text);
     metacog.finish_selection();
   };
 

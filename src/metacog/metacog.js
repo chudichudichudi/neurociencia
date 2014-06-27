@@ -24,9 +24,8 @@ var config = {
   circle_size: [151,150,152,
                 154,155,156,
                 157,158,159],
-  circle_color: [20,40,60,
-                80,100,120,
-                140,160,180],
+  circle_color: [0,0,0,0,0,0,0,0,0],
+  /*circle_color: [20,40,60,80,100,120,140,160,180],*/
   size_pattern: [96, 92, 88, 80, 75, 70, 60, 50],
   MAX_SIZE: 160,
   initial_treshold: 0.5,
@@ -34,6 +33,10 @@ var config = {
 };
 
 metacog.start = function(){
+
+
+  lime.Label.defaultFont = "Arial, Helvetica, sans-serif";
+
   metacog.director = new lime.Director(document.body,config.screen_width,config.screen_height);
   metacog.trials = new metacog.TrialLog(config.initial_treshold);
   metacog.create_trial();

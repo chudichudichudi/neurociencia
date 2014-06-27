@@ -41,13 +41,7 @@ metacog.TrialLog.prototype.sure_bet = function () {
 }
 
 metacog.TrialLog.prototype.not_sure_bet = function () {
-  if (this.current_trial.winner === this.current_trial.choosed) {
-    this.score += 1;
-  } else {
-    if(this.score <= 0){
-      return;
-    }
-  }
+  this.score += 1;
 }
 
 metacog.TrialLog.prototype.get_scale = function(){
