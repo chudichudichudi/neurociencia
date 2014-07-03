@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h2>New Todo Item</h2>
+  <form action="" method=post>
+    <p>
+      sujeto:
+      <input type=text name=sujeto value="{{ request.form.text }}">
+    <p>log:
+    <p><textarea name=log rows=10 cols=40>{{ request.form.text }}</textarea>
+    <p>
+      <input type=submit value="Create entry">
+      <a href="{{ url_for('show_all') }}">Back to list</a>
+  </form>
+{% endblock %}
