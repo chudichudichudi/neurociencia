@@ -26,11 +26,21 @@ var config = {
                 157,158,159],
   circle_color: [0,0,0,0,0,0,0,0,0],
   /*circle_color: [20,40,60,80,100,120,140,160,180],*/
-  size_pattern: [96, 92, 88, 80, 75, 70, 60, 50],
+  size_pattern: [96, 92, 97, 99, 98, 97, 93, 95],
   MAX_SIZE: 160,
   initial_treshold: 0.5,
-  difficulty_step: 1.8
+  difficulty_step: 1.8,
+  trial_amount: 30
 };
+
+metacog.saveLog = function() {
+  var data = JSON.stringify({sujeto: "chudi", log: metacog.trials.trial_results});
+  $.ajax("/createlog", {
+      data: data,
+      contentType : "application/json",
+      type : "POST"
+  }); 
+}
 
 metacog.start = function(){
 
@@ -44,6 +54,10 @@ metacog.start = function(){
 };
 
 metacog.create_trial = function() {
+  if(metacog.trials.trial_results.length > config.trial_amount){
+    metacog.saveLog();
+    return;
+  }
   metacog.trials.new_trial();
 
   var circle_scene = metacog.CircleScene.createScene(metacog.trials.get_scale());
