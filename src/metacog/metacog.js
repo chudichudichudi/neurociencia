@@ -2,6 +2,7 @@
 goog.provide('metacog');
 
 //get requirements
+goog.require('metacog.EndScene');
 goog.require('metacog.CircleScene');
 goog.require('metacog.SliderScene');
 goog.require('metacog.BetScene');
@@ -29,12 +30,12 @@ var config = {
   size_pattern: [96, 92, 97, 99, 98, 97, 93, 95],
   MAX_SIZE: 160,
   initial_treshold: 0.5,
-  difficulty_step: 1.8,
-  trial_amount: 30
+  difficulty_step: 1.5,
+  trial_amount: 50
 };
 
 metacog.saveLog = function() {
-  var data = JSON.stringify({sujeto: "chudi", log: metacog.trials.trial_results});
+  var data = JSON.stringify({sujeto: $('#sujeto').val(), log: metacog.trials.trial_results});
   $.ajax("/createlog", {
       data: data,
       contentType : "application/json",
@@ -43,18 +44,20 @@ metacog.saveLog = function() {
 }
 
 metacog.start = function(){
-
-
   lime.Label.defaultFont = "Arial, Helvetica, sans-serif";
-
   metacog.director = new lime.Director(document.body,config.screen_width,config.screen_height);
+  metacog.new_round();
+};
+
+metacog.new_round = function () {
   metacog.trials = new metacog.TrialLog(config.initial_treshold);
   metacog.create_trial();
-
-};
+}
 
 metacog.create_trial = function() {
   if(metacog.trials.trial_results.length > config.trial_amount){
+    var end_scene = metacog.EndScene.createScene();
+    metacog.director.replaceScene(end_scene);
     metacog.saveLog();
     return;
   }
