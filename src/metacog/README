@@ -2,13 +2,6 @@ todo:
 
 cliente
 
-* hacer un logger generico que se le pueda apuntar una api
-
-* pantalla login
-
-** Instrucciones del juego, poner nombre, start
-** logo del labo o algo asi
-
 servidor
 
 * hacer servidor que implente dicha api

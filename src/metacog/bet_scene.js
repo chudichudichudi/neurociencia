@@ -11,64 +11,27 @@ metacog.BetScene = function(){
 };
 
 
-metacog.BetScene.create_sure_button = function () {
-  var layer_sure = new lime.Layer().setPosition(256,512);
-  var sure_button = new lime.Label().setPosition(0,0).setText("Bet").setFontSize(50).setFontWeight("bold");
-  var sure_label = new lime.Label().setPosition(0,75).setText("Score +- 3").setFontSize(30);
-  layer_sure.appendChild(sure_button);
-  layer_sure.appendChild(sure_label);
-  goog.events.listen(layer_sure,['mousedown','touchstart'],function() {
-    metacog.manage_bet_sure();
-  });
-  return layer_sure;
-};
-
-metacog.BetScene.create_not_sure_button = function () {
-  var layer_not_sure = new lime.Layer().setPosition(768,512);
-  var not_sure_button = new lime.Label().setPosition(0,0).setText("Opt out").setFontSize(50).setFontWeight("bold");
-  var not_sure_label = new lime.Label().setPosition(0,75).setText("Score + 1").setFontSize(25);
-  layer_not_sure.appendChild(not_sure_button);
-  layer_not_sure.appendChild(not_sure_label);
-  goog.events.listen(layer_not_sure,['mousedown','touchstart'],function() {
-    metacog.manage_bet_not_sure();
-  });
-  return layer_not_sure;
-};
-
-
-metacog.BetScene.create_score = function () {
-  var layer_score = new lime.Layer().setPosition(512,256);
-  var score_text = new lime.Label().setPosition(0,0).setText("Score: ").setFontSize(100).setFontWeight("bold");
-  var score = new lime.Label().setPosition(200,0).setText( metacog.trials.score ).setFontSize(100).setFontWeight("bold");
-
-  layer_score.appendChild(score_text);
-  layer_score.appendChild(score);
-  return layer_score;
-};
-
 metacog.BetScene.createScene = function () {
 
 	var scene = new lime.Scene();
   
 
   var layer_score = new lime.Layer().setPosition(512,256);
-  var score_text = new lime.Label().setPosition(0,0).setText("Score: ").setFontSize(100).setFontWeight("bold");
-  var score = new lime.Label().setPosition(200,0).setText( metacog.trials.score ).setFontSize(100).setFontWeight("bold");
+  var score = new lime.Label().setPosition(0,0).setText( "Score: " + metacog.trials.score ).setFontSize(100).setFontWeight("bold");
 
-  layer_score.appendChild(score_text);
   layer_score.appendChild(score);
 
 
 
   var layer_not_sure = new lime.Layer().setPosition(768,512);
   var not_sure_button = new lime.Label().setPosition(0,0).setText("Opt out").setFontSize(50).setFontWeight("bold");
-  var not_sure_label = new lime.Label().setPosition(0,75).setText("Score + 1").setFontSize(25);
+  var not_sure_label = new lime.Label().setPosition(0,75).setText("Score + " + config.payment_opt_out).setFontSize(25);
   layer_not_sure.appendChild(not_sure_button);
   layer_not_sure.appendChild(not_sure_label);
   
   var layer_sure = new lime.Layer().setPosition(256,512);
   var sure_button = new lime.Label().setPosition(0,0).setText("Bet").setFontSize(50).setFontWeight("bold");
-  var sure_label = new lime.Label().setPosition(0,75).setText("Score +- 3").setFontSize(30);
+  var sure_label = new lime.Label().setPosition(0,75).setText("Score +- " + config.payment_bet).setFontSize(30);
   layer_sure.appendChild(sure_button);
   layer_sure.appendChild(sure_label);
 
@@ -87,7 +50,7 @@ metacog.BetScene.createScene = function () {
       metacog.trials.sure_bet();
 
       layer_score.removeChild(score);
-      layer_score.appendChild(new lime.Label().setPosition(200,0).setText( metacog.trials.score ).setFontSize(100).setFontWeight("bold"));
+      layer_score.appendChild(new lime.Label().setPosition(0,0).setText( "Score: " + metacog.trials.score ).setFontSize(100).setFontWeight("bold"));
 
       lime.scheduleManager.callAfter(function () {
         metacog.manage_bet_sure();
@@ -109,7 +72,7 @@ metacog.BetScene.createScene = function () {
 
       layer_score.removeChild(score);
 
-      layer_score.appendChild(new lime.Label().setPosition(200,0).setText( metacog.trials.score ).setFontSize(100).setFontWeight("bold"));
+      layer_score.appendChild(new lime.Label().setPosition(0,0).setText( "Score: " + metacog.trials.score ).setFontSize(100).setFontWeight("bold"));
 
       lime.scheduleManager.callAfter(function () {
         metacog.manage_bet_not_sure();

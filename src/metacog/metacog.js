@@ -18,6 +18,10 @@ goog.require('lime.animation.FadeTo');
 goog.require('lime.animation.ScaleTo');
 goog.require('lime.animation.MoveTo');
 
+goog.require('goog.Uri');
+
+
+
 var config = {
   screen_width: 1024,
   screen_height: 768,
@@ -26,12 +30,13 @@ var config = {
                 154,155,156,
                 157,158,159],
   circle_color: [0,0,0,0,0,0,0,0,0],
-  /*circle_color: [20,40,60,80,100,120,140,160,180],*/
   size_pattern: [96, 92, 97, 99, 98, 97, 93, 95],
   MAX_SIZE: 160,
   initial_treshold: 0.5,
   difficulty_step: 1.5,
-  trial_amount: 50
+  trial_amount: 50,
+  payment_bet: 3,
+  payment_opt_out:  1
 };
 
 metacog.saveLog = function() {
@@ -44,6 +49,14 @@ metacog.saveLog = function() {
 }
 
 metacog.start = function(){
+  var uri = new goog.Uri(window.location.href);
+  config.payment_bet = parseInt(uri.getParameterValue('payment_bet')) || 3;
+  config.payment_opt_out = parseInt(uri.getParameterValue('payment_opt_out')) || 1;
+  config.trial_amount = parseInt(uri.getParameterValue('trial_amount')) || 50;
+  config.initial_treshold = parseFloat(uri.getParameterValue('initial_treshold')) || 0.5;
+  config.difficulty_step = parseFloat(uri.getParameterValue('difficulty_step')) || 1.5;
+
+
   lime.Label.defaultFont = "Arial, Helvetica, sans-serif";
   metacog.director = new lime.Director(document.body,config.screen_width,config.screen_height);
   metacog.new_round();
@@ -55,7 +68,7 @@ metacog.new_round = function () {
 }
 
 metacog.create_trial = function() {
-  if(metacog.trials.trial_results.length > config.trial_amount){
+  if(metacog.trials.trial_results.length >= config.trial_amount){
     var end_scene = metacog.EndScene.createScene();
     metacog.director.replaceScene(end_scene);
     metacog.saveLog();

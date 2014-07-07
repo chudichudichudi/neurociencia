@@ -29,7 +29,7 @@ admin.add_view(ModelView(Log, db.session))
 @app.route('/')
 def show_all():
     return ""
-
+    
 @app.route('/createlog', methods = ['POST'])
 def create_log():
     if not request.json or not 'sujeto' in request.json or not 'log' in request.json:

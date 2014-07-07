@@ -31,17 +31,17 @@ metacog.TrialLog.prototype.get_ratio_win_loss = function() {
 
 metacog.TrialLog.prototype.sure_bet = function () {
   if (this.current_trial.winner === this.current_trial.choosed) {
-    this.score += 3;
+    this.score += config.payment_bet;
   } else {
     if(this.score <= 0){
       return;
     }
-    this.score -= 3;
+    this.score -= config.payment_bet;
   }
 }
 
 metacog.TrialLog.prototype.not_sure_bet = function () {
-  this.score += 1;
+  this.score += config.payment_opt_out;
 }
 
 metacog.TrialLog.prototype.get_scale = function(){
