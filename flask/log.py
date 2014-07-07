@@ -2,14 +2,14 @@ from datetime import datetime
 from flask import Flask, request, flash, url_for, redirect, \
      render_template, abort
 from flask_sqlalchemy import SQLAlchemy
+from flask.ext.admin import Admin, BaseView, expose
+from flask.ext.admin.contrib.sqla import ModelView
 
 import json
-
 
 app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
 db = SQLAlchemy(app)
-
 
 class Log(db.Model):
     __tablename__ = 'log'
@@ -22,27 +22,13 @@ class Log(db.Model):
         self.log = log
 
 
+
+admin = Admin(app)
+admin.add_view(ModelView(Log, db.session))
+
 @app.route('/')
 def show_all():
-    return render_template('show_all.html',
-        logs=Log.query.all()
-    )
-
-
-@app.route('/new', methods=['GET', 'POST'])
-def new():
-    if request.method == 'POST':
-        if not request.form['sujeto']:
-            flash('Sujeto is required', 'error')
-        elif not request.form['log']:
-            flash('log is required', 'error')
-        else:
-            log = Log(request.form['sujeto'], request.form['log'])
-            db.session.add(log)
-            db.session.commit()
-            flash(u'Log item was successfully created')
-            return redirect(url_for('show_all'))
-    return render_template('new.html')
+    return ""
 
 @app.route('/createlog', methods = ['POST'])
 def create_log():
