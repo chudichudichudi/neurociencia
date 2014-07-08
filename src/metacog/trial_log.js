@@ -33,10 +33,10 @@ metacog.TrialLog.prototype.sure_bet = function () {
   if (this.current_trial.winner === this.current_trial.choosed) {
     this.score += config.payment_bet;
   } else {
-    if(this.score <= 0){
-      return;
-    }
     this.score -= config.payment_bet_wrong;
+    if(this.score <= 0){
+      this.score = 0;
+    }
   }
 }
 

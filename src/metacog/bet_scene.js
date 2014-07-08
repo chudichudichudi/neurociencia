@@ -25,8 +25,10 @@ metacog.BetScene.createScene = function () {
   
   var layer_sure = new lime.Layer().setPosition(256,512);
   var sure_button = new lime.Label().setPosition(0,0).setText("Bet").setFontSize(50).setFontWeight("bold");
-  var sure_label = new lime.Label().setPosition(0,75).setText("Score +- " + config.payment_bet).setFontSize(30);
+  var sure_label = new lime.Label().setPosition(0,75).setText("Score +" + config.payment_bet).setFontSize(30);
+  var sure__wrong_label = new lime.Label().setPosition(0,105).setText("Score -" + config.payment_bet_wrong).setFontSize(30);
   layer_sure.appendChild(sure_button);
+  layer_sure.appendChild(sure__wrong_label);
   layer_sure.appendChild(sure_label);
 
   var zoomout_sure = new lime.animation.Spawn(
