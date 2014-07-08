@@ -10,22 +10,16 @@ goog.require('lime.animation.ScaleTo');
 metacog.BetScene = function(){
 };
 
-
 metacog.BetScene.createScene = function () {
-
-	var scene = new lime.Scene();
-  
-
+	var scene = new lime.Scene();  
   var layer_score = new lime.Layer().setPosition(512,256);
   var score = new lime.Label().setPosition(0,0).setText( "Score: " + metacog.trials.score ).setFontSize(100).setFontWeight("bold");
 
   layer_score.appendChild(score);
 
-
-
   var layer_not_sure = new lime.Layer().setPosition(768,512);
   var not_sure_button = new lime.Label().setPosition(0,0).setText("Opt out").setFontSize(50).setFontWeight("bold");
-  var not_sure_label = new lime.Label().setPosition(0,75).setText("Score + " + config.payment_opt_out).setFontSize(25);
+  var not_sure_label = new lime.Label().setPosition(0,75).setText("Score + "+config.payment_opt_out).setFontSize(25);
   layer_not_sure.appendChild(not_sure_button);
   layer_not_sure.appendChild(not_sure_label);
   
@@ -48,10 +42,8 @@ metacog.BetScene.createScene = function () {
 
   goog.events.listen(zoomout_sure,lime.animation.Event.STOP,function(){
       metacog.trials.sure_bet();
-
       layer_score.removeChild(score);
       layer_score.appendChild(new lime.Label().setPosition(0,0).setText( "Score: " + metacog.trials.score ).setFontSize(100).setFontWeight("bold"));
-
       lime.scheduleManager.callAfter(function () {
         metacog.manage_bet_sure();
       }, false, 500);

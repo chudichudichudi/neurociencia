@@ -5,14 +5,14 @@ goog.require('lime.Layer');
 goog.require('lime.Circle');
 goog.require('lime.Label');
 
-metacog.TrialLog = function(threshold){
-  this.threshold = threshold;
+metacog.TrialLog = function(initial_treshold){
+  this.initial_treshold = initial_treshold;
   this.trial_results = [];
   this.current_trial = {};
   this.score = 0;
 };
 
-metacog.TrialLog.prototype.get_ratio_win_loss = function() {
+metacog.TrialLog.prototype.get_win_loss_ratio = function() {
   var win_count = 0;
   for (var i = 0; i < this.trial_results.length; i++) {
     var elem = this.trial_results[i];
@@ -36,7 +36,7 @@ metacog.TrialLog.prototype.sure_bet = function () {
     if(this.score <= 0){
       return;
     }
-    this.score -= config.payment_bet;
+    this.score -= config.payment_bet_wrong;
   }
 }
 
@@ -45,8 +45,8 @@ metacog.TrialLog.prototype.not_sure_bet = function () {
 }
 
 metacog.TrialLog.prototype.get_scale = function(){
-  var ratio = this.get_ratio_win_loss();
-  if (ratio > this.threshold ){
+  var ratio = this.get_win_loss_ratio();
+  if (ratio > this.initial_treshold ){
     return Math.min(ratio * config.difficulty_step,1);;
   } else {
     return ratio;
@@ -82,7 +82,7 @@ metacog.TrialLog.prototype.new_trial = function () {
     console.log('trial inicial')
     trial.circle_size = goog.array.clone(config.circle_size);
     trial.winner = this.who_is_the_winner(trial.circle_size);
-    trial.scale = this.threshold;
+    trial.scale = this.initial_treshold;
   } else {
     console.log('trial: ' + this.trial_results.length);
     trial.circle_size = this.generate_sizes(this.get_scale());

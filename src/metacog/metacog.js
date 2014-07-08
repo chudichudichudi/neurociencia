@@ -36,6 +36,7 @@ var config = {
   difficulty_step: 1.5,
   trial_amount: 50,
   payment_bet: 3,
+  payment_bet_wrong: 3,
   payment_opt_out:  1
 };
 
@@ -48,9 +49,19 @@ metacog.saveLog = function() {
   }); 
 }
 
+metacog.update_log = function() {
+  var data = JSON.stringify({sujeto: $('#sujeto').val(), log: metacog.trials.trial_results});
+  $.ajax("/updatelog", {
+      data: data,
+      contentType : "application/json",
+      type : "POST"
+  }); 
+}
+
 metacog.start = function(){
   var uri = new goog.Uri(window.location.href);
   config.payment_bet = parseInt(uri.getParameterValue('payment_bet')) || 3;
+  config.payment_bet_wrong = parseInt(uri.getParameterValue('payment_bet_wrong')) || 3;
   config.payment_opt_out = parseInt(uri.getParameterValue('payment_opt_out')) || 1;
   config.trial_amount = parseInt(uri.getParameterValue('trial_amount')) || 50;
   config.initial_treshold = parseFloat(uri.getParameterValue('initial_treshold')) || 0.5;
@@ -71,7 +82,7 @@ metacog.create_trial = function() {
   if(metacog.trials.trial_results.length >= config.trial_amount){
     var end_scene = metacog.EndScene.createScene();
     metacog.director.replaceScene(end_scene);
-    metacog.saveLog();
+    metacog.save_log();
     return;
   }
   metacog.trials.new_trial();
