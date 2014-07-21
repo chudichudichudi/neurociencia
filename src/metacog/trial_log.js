@@ -107,6 +107,10 @@ metacog.TrialLog.prototype.get_current_circle_size = function() {
   return this.current_trial.circle_size;
 };
 
+metacog.TrialLog.prototype.prepare_for_update = function() {
+  this.sending_this.trial_results
+};
+
 metacog.TrialLog.prototype.set_elected_circle = function(circle) {
   console.log('seleccione: ' + circle + ' el ganador es: ' + this.trial_results[this.trial_results.length - 1].winner);
   this.trial_results[this.trial_results.length - 1].choosed = circle;

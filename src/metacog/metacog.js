@@ -40,26 +40,38 @@ var config = {
   payment_opt_out:  1
 };
 
-metacog.saveLog = function() {
-  var data = JSON.stringify({sujeto: $('#sujeto').val(), log: metacog.trials.trial_results});
-  $.ajax("/createlog", {
+metacog.create_log = function() {
+  var data = JSON.stringify({sujeto: $('#sujeto').val()});
+  $.ajax("/create_log", {
       data: data,
       contentType : "application/json",
-      type : "POST"
+      type : "POST",
+      success: function (data) {
+        metacog.trials.log_id = parseInt(data);
+      }
   }); 
 }
 
-metacog.update_log = function() {
-  var data = JSON.stringify({sujeto: $('#sujeto').val(), log: metacog.trials.trial_results});
-  $.ajax("/updatelog", {
+metacog.append_log = function() {
+  var update_info = { 
+                      sujeto: $('#sujeto').val(),
+                      log: metacog.trials.trial_results, 
+                      id: metacog.trials.log_id
+                    };
+  metacog.trials.prepare_for_update();
+  var data = JSON.stringify(update_info);
+  $.ajax("/append_log", {
       data: data,
       contentType : "application/json",
-      type : "POST"
-  }); 
+      type : "POST",
+      success: function () {
+      }
+  });
 }
 
 metacog.start = function(){
   var uri = new goog.Uri(window.location.href);
+  metacog.create_log();
   config.payment_bet = parseInt(uri.getParameterValue('payment_bet')) || 3;
   config.payment_bet_wrong = parseInt(uri.getParameterValue('payment_bet_wrong')) || 3;
   config.payment_opt_out = parseInt(uri.getParameterValue('payment_opt_out')) || 1;
@@ -82,7 +94,6 @@ metacog.create_trial = function() {
   if(metacog.trials.trial_results.length >= config.trial_amount){
     var end_scene = metacog.EndScene.createScene();
     metacog.director.replaceScene(end_scene);
-    metacog.save_log();
     return;
   }
   metacog.trials.new_trial();
